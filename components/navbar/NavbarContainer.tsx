@@ -10,7 +10,6 @@ const NavBarContainer = ({ children, ...props }) => {
       gap={10}
       flexWrap="wrap"
       w="100%"
-      mb={6}
       p="2.5%"
       pb={6}
       pt={6}
