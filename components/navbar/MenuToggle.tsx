@@ -11,7 +11,7 @@ const MenuToggle = ({ toggle, isOpen }: MenuToggleProps) => {
       gridColumn={2}
       justifySelf="end"
       pr={10}
-      display={{ base: "block", md: "none" }}
+      display={{ base: "block", nav1: "none" }}
       onClick={toggle}
     >
       {isOpen ? "Close" : "Open"}

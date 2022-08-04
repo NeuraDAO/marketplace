@@ -6,9 +6,9 @@ import MenuItem from "./MenuItem";
 const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
   return (
     <Box
-      display={{ base: isOpen ? "flex" : "none", md: "block" }}
-      flexBasis={{ base: "100%", md: "auto" }}
-      gridColumn={{ base: "1 / -1", md: "2" }}
+      display={{ base: isOpen ? "flex" : "none", nav1: "block" }}
+      flexBasis={{ base: "100%", nav1: "auto" }}
+      gridColumn={{ base: "1 / -1", nav1: "2" }}
       gap={6}
     >
       {/* <Stack
@@ -18,7 +18,12 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
       > */}
-      <Flex w="100%" justifyContent="space-between">
+      <Flex
+        w="100%"
+        flexDirection={{ base: "column", nav2: "row" }}
+        gap={6}
+        justifyContent="space-between"
+      >
         <Flex gap={6}>
           <MenuItem left to="/publish">
             Publish
