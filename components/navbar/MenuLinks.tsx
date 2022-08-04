@@ -1,4 +1,4 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import MenuItem from "./MenuItem";
@@ -11,13 +11,6 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
       gridColumn={{ base: "1 / -1", nav1: "2" }}
       gap={6}
     >
-      {/* <Stack
-        spacing={8}
-        align="center"
-        justify={["center", "space-between", "flex-end", "flex-end"]}
-        direction={["column", "row", "row", "row"]}
-        pt={[4, 4, 0, 0]}
-      > */}
       <Flex
         w="100%"
         flexDirection={{ base: "column", nav2: "row" }}
@@ -59,7 +52,6 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
           </MenuItem>
         </Flex>
       </Flex>
-      {/* </Stack> */}
     </Box>
   );
 };

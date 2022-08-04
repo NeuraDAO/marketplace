@@ -1,11 +1,10 @@
-import { Flex, Grid } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 
 const NavBarContainer = ({ children, ...props }) => {
   return (
     <Grid
       as="nav"
       alignItems="center"
-      // justifyContent="space-between"
       templateColumns="auto 1fr"
       gridAutoFlow="row"
       gap={10}
