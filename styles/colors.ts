@@ -12,4 +12,7 @@ export default {
     900: "#162740",
     gray: "#AEA3A3",
   },
+  neuraPurple: {
+    500: "#9B6CD7",
+  },
 };
