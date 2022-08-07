@@ -1,4 +1,4 @@
-import { Center, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import DatasetSection from "../components/landing/DatasetList";
 import Header from "../components/landing/Header";
@@ -11,14 +11,24 @@ const Home: NextPage = () => {
       {/* centers the grid on the page */}
       <Center>
         {/* grid container that defines the layout */}
-        <Grid templateColumns="1fr 3fr" maxW="100%" w="85%">
-          <GridItem colSpan={2}>
+        <Grid
+          templateColumns="auto auto 3fr"
+          columnGap={10}
+          gap={4}
+          maxW="100%"
+          w="85%"
+        >
+          <GridItem colSpan={3}>
             <Header />
           </GridItem>
-          <GridItem gridColumn={1}>
+          <GridItem justifySelf="center" gridColumn={1}>
             <SearchSection />
           </GridItem>
-          <GridItem display="block" gridColumn={2} w="100%">
+          {/* white line between the two containers on md+ devices */}
+          <GridItem gridColumn={2} mt={8}>
+            <Box w="2px" h="100%" bg="white" />
+          </GridItem>
+          <GridItem display="block" gridColumn={3} w="100%">
             <DatasetSection />
           </GridItem>
         </Grid>

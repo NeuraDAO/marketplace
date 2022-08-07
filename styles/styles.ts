@@ -5,6 +5,7 @@ export default {
     },
     "*": {
       color: "white",
+      fontFamily: "Work Sans",
     },
   },
 };

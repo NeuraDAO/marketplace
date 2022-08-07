@@ -11,7 +11,7 @@ import { useState } from "react";
 import Dataset from "./Dataset";
 
 const DatasetSection = () => {
-  const [data, setData] = useState(["hi"]);
+  const [data, setData] = useState(["hi", "hi", "hi", "hi", "hi", "hi"]);
   const [selectedOptions, setSelectedOptions] = useState([
     {
       name: "Modality",
@@ -26,13 +26,18 @@ const DatasetSection = () => {
   return (
     <Container p={0} m={0} w="100%" maxW="100%">
       {/* Filter section */}
-      <Text fontSize="xl" fontWeight="bold">
+      <Text fontSize="2xl" fontWeight="bold">
         Filtered Datasets: {data.length}
       </Text>
-      <Grid gridAutoFlow="column">
+      <Grid
+        gridAutoFlow="column"
+        borderBottom="3px solid #FFFFFF"
+        mb={8}
+        pb={4}
+      >
         {selectedOptions.map((option, index) => (
           <>
-            <Text key="index">
+            <Text key={index}>
               {option.name}:{" "}
               {option.options.map((option, index) => (
                 <Tag

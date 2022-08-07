@@ -1,8 +1,10 @@
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
+  Grid,
   Heading,
   Input,
   Tag,
@@ -31,12 +33,18 @@ const SearchSection = () => {
   const [keyword, setKeyword] = useState("");
 
   return (
-    <Container maxWidth="100%" width="350px">
+    <Grid
+      justifyItems="center"
+      placeSelf="center"
+      mt={8}
+      // maxWidth="100%"
+      width="100%"
+    >
       <Heading fontSize="3xl" fontWeight="normal">
         Search NeuraDAO
       </Heading>
       {/* search bar area */}
-      <Text>Keywords</Text>
+      <Text justifySelf="start">Keywords</Text>
       <Flex mb={4}>
         <Input
           h={8}
@@ -50,10 +58,11 @@ const SearchSection = () => {
         </Button>
       </Flex>
       {/* list of all the options */}
-      {searchOptions.map((option) => {
+      {searchOptions.map((option, index) => {
         const [open, setOpen] = useState(false);
         return (
           <Box
+            key={index}
             w={240}
             pb={1}
             borderBottomColor="white"
@@ -105,7 +114,7 @@ const SearchSection = () => {
           </Box>
         );
       })}
-    </Container>
+    </Grid>
   );
 };
 

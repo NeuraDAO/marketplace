@@ -26,9 +26,10 @@ const Dataset = ({ data }: DatasetProps) => {
       templateRows="repeat(4,auto)"
       border="3px solid #FFFFFF"
       borderRadius="15px"
-      px={2}
+      px={3}
       py={4}
       gap={2}
+      mb={8}
       columnGap={{ base: 2, md: 4, lg: 8 }}
     >
       <GridItem gridRow="1" colStart={1} colSpan={5}>

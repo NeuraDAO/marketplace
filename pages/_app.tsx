@@ -1,3 +1,5 @@
+import "@fontsource/work-sans";
+
 import type { AppProps } from "next/app";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
