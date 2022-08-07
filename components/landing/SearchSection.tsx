@@ -13,7 +13,7 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CloseIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 
 // TODO: get options from openneuro site
 const searchOptions = [
@@ -96,8 +96,9 @@ const SearchSection = () => {
                   <TagRightIcon
                     w={2}
                     h={2}
-                    as={CloseIcon}
+                    as={AddIcon}
                     color="neuraPurple.500"
+                    cursor="pointer"
                   />
                 </Tag>
               ))}
