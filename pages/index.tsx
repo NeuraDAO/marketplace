@@ -12,23 +12,34 @@ const Home: NextPage = () => {
       <Center>
         {/* grid container that defines the layout */}
         <Grid
-          templateColumns="auto auto 3fr"
+          templateColumns={{ base: "1fr", landing1: "auto auto 3fr" }}
           columnGap={10}
           gap={4}
           maxW="100%"
-          w="85%"
+          w={{ base: "97%", landing1: "85%" }}
         >
           <GridItem colSpan={3}>
             <Header />
           </GridItem>
-          <GridItem justifySelf="center" gridColumn={1}>
+          <GridItem
+            justifySelf={{ base: "start", landing1: "center" }}
+            gridColumn={1}
+          >
             <SearchSection />
           </GridItem>
           {/* white line between the two containers on md+ devices */}
-          <GridItem gridColumn={2} mt={8}>
+          <GridItem
+            display={{ base: "none", landing1: "block" }}
+            gridColumn={2}
+            mt={8}
+          >
             <Box w="2px" h="100%" bg="white" />
           </GridItem>
-          <GridItem display="block" gridColumn={3} w="100%">
+          <GridItem
+            display="block"
+            gridColumn={{ base: 1, landing1: 3 }}
+            w="100%"
+          >
             <DatasetSection />
           </GridItem>
         </Grid>
