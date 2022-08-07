@@ -2,12 +2,13 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { motion, Transition, SVGMotionProps } from "framer-motion";
 
-interface Props extends SVGMotionProps {
+interface Props extends SVGMotionProps<any> {
   isOpen?: boolean;
   color?: string;
   strokeWidth?: string | number;
   transition?: Transition;
   lineProps?: any;
+  toggle?: () => void;
 }
 
 const MenuToggle = ({
