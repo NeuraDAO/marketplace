@@ -1,11 +1,15 @@
 import { Box, Center, Grid, GridItem } from "@chakra-ui/react";
 import type { NextPage } from "next";
+import { useState } from "react";
 import DatasetSection from "../components/landing/DatasetList";
 import Header from "../components/landing/Header";
 import SearchSection from "../components/landing/SearchSection";
 import Layout from "../components/Layout";
+import Search from "../src/components/Search";
 
 const Home: NextPage = () => {
+  const [totalResults, setTotalResults] = useState<number>();
+  const [totalPagesNumber, setTotalPagesNumber] = useState<number>();
   return (
     <Layout title="Home">
       {/* centers the grid on the page */}
@@ -41,6 +45,10 @@ const Home: NextPage = () => {
             w="100%"
           >
             <DatasetSection />
+            {/* <Search
+              setTotalResults={setTotalResults}
+              setTotalPagesNumber={setTotalPagesNumber}
+            /> */}
           </GridItem>
         </Grid>
       </Center>

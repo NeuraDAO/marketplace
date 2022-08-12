@@ -1,0 +1,21 @@
+{
+  "siteTitle": "NeuraDAO Market",
+  "siteTagline": "A marketplace to find, publish and trade data sets in the Ocean Network.",
+  "siteUrl": "https://market.oceanprotocol.com",
+  "siteImage": "/share.png",
+  "copyright": "All Rights Reserved. Powered by ",
+  "menu": [
+    {
+      "name": "Publish",
+      "link": "/publish/1"
+    },
+    {
+      "name": "Profile",
+      "link": "/profile"
+    }
+  ],
+  "announcement": "Data NFTs, One-Sided Staking and more.",
+  "warning": {
+    "ctd": "Compute-to-Data is still in a testing phase, please use it only on test networks."
+  }
+}

@@ -1,0 +1,18 @@
+.consume {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info {
+  display: flex;
+  width: auto;
+}
+
+.filewrapper {
+  flex-shrink: 0;
+}
+
+.feedback {
+  width: 100%;
+  margin-top: calc(var(--spacer));
+}

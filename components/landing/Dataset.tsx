@@ -11,13 +11,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { AssetExtended } from "src/@types/AssetExtended";
 
-interface DatasetProps {
-  // todo: better define the props here for the object
-  data: any;
-}
-
-const Dataset = ({ data }: DatasetProps) => {
+const Dataset = ({ asset }: { asset: AssetExtended }) => {
+  const { metadata: data, stats, accessDetails } = asset;
   return (
     <Grid
       w="100%"
@@ -33,7 +30,7 @@ const Dataset = ({ data }: DatasetProps) => {
       columnGap={{ base: 2, md: 4, lg: 8 }}
     >
       <GridItem gridRow="1" colStart={1} colSpan={5}>
-        <Heading color="brand.500">Title of Dataset</Heading>
+        <Heading color="brand.500">{data.name}</Heading>
       </GridItem>
       <GridItem
         gridRow="1"
@@ -42,35 +39,40 @@ const Dataset = ({ data }: DatasetProps) => {
         justifySelf="end"
         alignSelf="center"
       >
-        <Text fontSize="xl">15 Purchases | EEG</Text>
+        <Text fontSize="xl">
+          {stats.orders} Purchase{stats.orders !== 1 && "s"} |{" "}
+          {data?.tags?.[0].toUpperCase()}
+        </Text>
       </GridItem>
       <GridItem gridRow="2" colStart={1} colSpan={7}>
         <Text fontSize="sm" color="brand.gray">
-          Uploaded by Ahnaaf Khan on 2022-20-7 | Updated 2022-20-9
+          Uploaded by {data.author} on {data.created} |{" "}
+          {/* TODO: format date to local string */}
+          {data.updated && `Updated ${data.updated}`}
         </Text>
       </GridItem>
       <GridItem my={2} gridRow="3" colStart={1} colSpan={{ base: 8, md: 6 }}>
-        <Text>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi ipsa
-          dignissimos illum minus, officia nihil. Tenetur, ratione quas
-          praesentium nam quod eveniet. Hic, libero quae consectetur qui numquam
-          voluptatem debitis?
-        </Text>
+        <Text>{data.description}</Text>
       </GridItem>
       <GridItem gridRow="4" colStart={1} colSpan={2}>
         <Text>
           Tasks:{" "}
-          <Tag
-            m={1}
-            borderRadius="2px"
-            size="md"
-            variant="outline"
-            colorScheme="neuraPurple"
-          >
-            <TagLabel color="neuraPurple.500" fontWeight="500">
-              Sleep
-            </TagLabel>
-          </Tag>
+          {data?.tags &&
+            data.tags.map((tag, index) => (
+              <Tag
+                m={1}
+                key={index}
+                borderRadius="2px"
+                size="md"
+                variant="outline"
+                colorScheme="neuraPurple"
+              >
+                <TagLabel color="neuraPurple.500" fontWeight="500">
+                  {tag}
+                </TagLabel>
+              </Tag>
+            ))}
+          {/* {data?.tags?.length == 0 && <Text>None</Text>} */}
         </Text>
       </GridItem>
       <GridItem gridRow="4" colStart={4}>
@@ -90,7 +92,10 @@ const Dataset = ({ data }: DatasetProps) => {
       </GridItem>
       <GridItem gridRow="5" colStart={1} colSpan={5}>
         <Text color="brand.500" fontWeight="bold" fontSize="xl">
-          Price: 15 NEURON
+          {/* TODO: add support for dynamic pricing */}
+          {accessDetails
+            ? `${accessDetails.price} ${accessDetails.baseToken.symbol}`
+            : "Price: loading..."}
         </Text>
       </GridItem>
     </Grid>

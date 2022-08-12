@@ -7,11 +7,15 @@ import {
   TagRightIcon,
   Text,
 } from "@chakra-ui/react";
+import { useSearch } from "components/Search";
 import { useState } from "react";
 import Dataset from "./Dataset";
 
 const DatasetSection = () => {
-  const [data, setData] = useState(["hi", "hi", "hi", "hi", "hi", "hi"]);
+  const [totalResults, setTotalResults] = useState<number>();
+  const [totalPagesNumber, setTotalPagesNumber] = useState<number>();
+  const queryResults = useSearch({ setTotalResults, setTotalPagesNumber });
+  const data = queryResults.data ?? [];
   const [selectedOptions, setSelectedOptions] = useState([
     {
       name: "Modality",
@@ -65,7 +69,7 @@ const DatasetSection = () => {
         ))}
       </Grid>
       {data.map((item, index) => (
-        <Dataset data={item} key={index} />
+        <Dataset asset={item} key={index} />
       ))}
     </Container>
   );
