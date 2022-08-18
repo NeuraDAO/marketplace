@@ -21,12 +21,31 @@ import SearchToggle from "./SearchToggle";
 // TODO: get options from openneuro site
 const searchOptions = [
   {
-    name: "Choose Modality",
-    options: ["startup", "enterprise", "government", "nonprofit", "other"],
+    name: "Access Type",
+    type: "radio",
+    value: "accessType",
+    options: [
+      { name: "download", value: "access" },
+      { name: "compute", value: "compute" },
+    ],
   },
   {
-    name: "Price",
-    options: ["100-200", "200-500", "500-1000", "1000+"],
+    name: "Service Type",
+    type: "radio",
+    value: "serviceType",
+    options: [
+      { name: "datasets", value: "dataset" },
+      { name: "algorithms", value: "algorithm" },
+    ],
+  },
+  {
+    name: "Sort Order",
+    type: "radio",
+    value: "sortOrder",
+    options: [
+      { name: "Ascending", value: "asc" },
+      { name: "Descending", value: "desc" },
+    ],
   },
 ];
 

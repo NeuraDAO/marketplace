@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import DatasetSection from "../components/landing/DatasetList";
 import Header from "../components/landing/Header";
-import SearchSection from "../components/landing/SearchSection";
+import SearchSection from "../components/landing/searchSection/SearchSection";
 import Layout from "../components/Layout";
 import Search from "../src/components/Search";
 

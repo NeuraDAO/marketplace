@@ -1,15 +1,48 @@
-import { Box, Flex, Tag, TagLabel, TagRightIcon, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Tab,
+  TabList,
+  TabPanels,
+  Tabs,
+  Tag,
+  TagLabel,
+  TagRightIcon,
+  Text,
+} from "@chakra-ui/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AddIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
+import TabOptions from "./TabOptions";
 
 interface SearchToggleProps {
+  // TODO: write proper typedefs for this
   option: any;
 }
 
+const SearchTypeDisplay = ({ type, query, option, handleClick }) => {
+  switch (type) {
+    case "radio":
+      return (
+        <TabOptions query={query} option={option} handleClick={handleClick} />
+      );
+    case "text":
+  }
+  return null;
+};
+
 const SearchToggle = ({ option }: SearchToggleProps) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  const handleClick = (key: string, value: string) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, [key]: value },
+    });
+  };
 
   return (
     <Box
@@ -36,7 +69,7 @@ const SearchToggle = ({ option }: SearchToggleProps) => {
           />
         </Box>
       </Flex>
-      {open &&
+      {/* {open && 
         option.options.map((item, index) => (
           <Tag
             m={1}
@@ -57,7 +90,16 @@ const SearchToggle = ({ option }: SearchToggleProps) => {
               cursor="pointer"
             />
           </Tag>
-        ))}
+        ))} */}
+      {/* set index to -1 initially so none of the tabs are selected */}
+      {open && (
+        <SearchTypeDisplay
+          type={option.type}
+          option={option}
+          query={router.query}
+          handleClick={handleClick}
+        />
+      )}
     </Box>
   );
 };

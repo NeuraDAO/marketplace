@@ -94,7 +94,7 @@ const Dataset = ({ asset }: { asset: AssetExtended }) => {
         <Text color="brand.500" fontWeight="bold" fontSize="xl">
           {/* TODO: add support for dynamic pricing */}
           {accessDetails
-            ? `${accessDetails.price} ${accessDetails.baseToken.symbol}`
+            ? `${accessDetails?.price} ${accessDetails?.baseToken?.symbol}`
             : "Price: loading..."}
         </Text>
       </GridItem>

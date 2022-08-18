@@ -57,7 +57,7 @@ export function useSearch({
     }
     fetchPrices();
   }, [
-    // queryResult,
+    queryResult,
     isMounted,
     // accountId
   ]);
@@ -96,6 +96,7 @@ export function useSearch({
     async (parsed: queryString.ParsedQuery<string>, chainIds: number[]) => {
       setLoading(true);
       setTotalResults(undefined);
+      console.log({ parsed });
       const queryResult = await getResults(parsed, chainIds, newCancelToken());
       setQueryResult(queryResult);
 
