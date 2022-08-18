@@ -18,8 +18,14 @@ import { motion } from "framer-motion";
 import { AddIcon } from "@chakra-ui/icons";
 import SearchToggle from "./SearchToggle";
 
-// TODO: get options from openneuro site
+// TODO: get options from openneuro site & write typedefs
 const searchOptions = [
+  {
+    name: "Text Search",
+    value: "text",
+    placeholder: "Search by name, description, or tags",
+    type: "text",
+  },
   {
     name: "Access Type",
     type: "radio",
@@ -50,33 +56,11 @@ const searchOptions = [
 ];
 
 const SearchSection = () => {
-  const [keyword, setKeyword] = useState("");
-
   return (
-    <Grid
-      justifyItems="center"
-      placeSelf="center"
-      mt={8}
-      // maxWidth="100%"
-      width="100%"
-    >
+    <Grid justifyItems="center" placeSelf="center" mt={8} width="100%">
       <Heading fontSize="3xl" fontWeight="normal">
         Search NeuraDAO
       </Heading>
-      {/* search bar area */}
-      <Text justifySelf="start">Keywords</Text>
-      <Flex mb={4}>
-        <Input
-          h={8}
-          fontSize={14}
-          borderRadius={0}
-          w={200}
-          placeholder="Enter Keyword(s) to search"
-        />
-        <Button w={4} p={0} h={8} borderRadius={0} bg="white">
-          <Image src="/plus.png" width={20} height={20} alt="plus button" />
-        </Button>
-      </Flex>
       {/* list of all the options */}
       {searchOptions.map((option, index) => (
         <SearchToggle option={option} key={index} />

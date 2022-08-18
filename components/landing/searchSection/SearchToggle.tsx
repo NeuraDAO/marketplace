@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { AddIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import TabOptions from "./TabOptions";
+import TextInput from "./TextInput";
 
 interface SearchToggleProps {
   // TODO: write proper typedefs for this
@@ -29,6 +30,9 @@ const SearchTypeDisplay = ({ type, query, option, handleClick }) => {
         <TabOptions query={query} option={option} handleClick={handleClick} />
       );
     case "text":
+      return (
+        <TextInput handleClick={handleClick} query={query} option={option} />
+      );
   }
   return null;
 };
