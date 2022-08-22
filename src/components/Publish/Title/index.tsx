@@ -1,21 +1,21 @@
-import React, { ReactElement } from 'react'
-import NetworkName from '@shared/NetworkName'
-import Tooltip from '@shared/atoms/Tooltip'
-import styles from './index.module.css'
-import content from '../../../../content/publish/index.json'
-import { useWeb3 } from '@context/Web3'
-import Info from '@images/info.svg'
-import AvailableNetworks from 'src/components/Publish/AvailableNetworks'
+import React, { ReactElement } from "react";
+import NetworkName from "@shared/NetworkName";
+import Tooltip from "@shared/atoms/Tooltip";
+import styles from "./index.module.css";
+import content from "../../../../content/publish/index.json";
+import { useWeb3 } from "@context/Web3";
+import Info from "@images/info.svg";
+import AvailableNetworks from "src/components/Publish/AvailableNetworks";
 
 export default function Title({
-  networkId
+  networkId,
 }: {
-  networkId: number
+  networkId: number;
 }): ReactElement {
-  const { isSupportedOceanNetwork, accountId } = useWeb3()
+  const { isSupportedOceanNetwork, accountId } = useWeb3();
   return (
     <>
-      {content.title}{' '}
+      {content.title}{" "}
       {networkId && (
         <>
           into
@@ -40,5 +40,5 @@ export default function Title({
         </>
       )}
     </>
-  )
+  );
 }
