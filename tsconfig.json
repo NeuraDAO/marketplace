@@ -14,7 +14,7 @@
       "@images/*": ["./src/@images/*"],
       "@utils/*": ["./src/@utils/*"],
       "@content/*": ["./content/*"],
-      "components/*": ["./src/components/*"],
+      "components/*": ["./src/components/*"]
     },
     "baseUrl": ".",
     "esModuleInterop": true,
@@ -25,6 +25,13 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "./src/**/*",
+    "./tests/**/*",
+    "./next-env.d.ts",
+    "./content/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules", ".next", "*.js"]
 }
