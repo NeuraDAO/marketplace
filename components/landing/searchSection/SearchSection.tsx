@@ -13,10 +13,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AddIcon } from "@chakra-ui/icons";
 import SearchToggle from "./SearchToggle";
+import { useRouter } from "next/router";
 
 // TODO: get options from openneuro site & write typedefs
 const searchOptions = [
@@ -56,6 +57,22 @@ const searchOptions = [
 ];
 
 const SearchSection = () => {
+  const router = useRouter();
+
+  // set default search queries if none are provided
+  useEffect(() => {
+    console.log({ query: router.query });
+    if (Object.keys(router.query).length === 0) {
+      router.push({
+        pathname: router.pathname,
+        query: {
+          sort: "nft.created",
+          sortOrder: "desc",
+        },
+      });
+    }
+  }, []);
+
   return (
     <Grid justifyItems="center" placeSelf="center" mt={8} width="100%">
       <Heading fontSize="3xl" fontWeight="normal">
