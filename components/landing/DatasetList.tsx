@@ -9,8 +9,28 @@ import {
 } from "@chakra-ui/react";
 import { useSearch } from "components/Search";
 import { useState } from "react";
+import { TokensPriceQuery } from "src/@types/subgraph/TokensPriceQuery";
+import { OperationResult } from "urql";
 
 import Dataset from "./Dataset";
+
+const getPriceStr = (
+  assetPrices: OperationResult<
+    TokensPriceQuery,
+    { datatokenIds: [string]; account: string }
+  >,
+  tokenId: String
+) => {
+  let priceStr = "No price found.";
+  assetPrices?.data?.tokens?.forEach((details) => {
+    if (details.pools.length === 0) return;
+    console.log({ details });
+    if (tokenId === details.id) {
+      priceStr = `${details?.pools[0]?.spotPrice} ${details?.pools[0]?.baseToken?.symbol}`;
+    }
+  });
+  return priceStr;
+};
 
 const DatasetSection = () => {
   const [totalResults, setTotalResults] = useState<number>();
@@ -70,7 +90,14 @@ const DatasetSection = () => {
         ))}
       </Grid>
       {data.map((item, index) => (
-        <Dataset asset={item} key={index} />
+        <Dataset
+          asset={item}
+          priceStr={getPriceStr(
+            queryResults?.assetPrices,
+            item.services[0].datatokenAddress.toLowerCase()
+          )}
+          key={index}
+        />
       ))}
     </Container>
   );
