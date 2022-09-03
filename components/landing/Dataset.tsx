@@ -12,8 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { AssetExtended } from "src/@types/AssetExtended";
+import { TokensPriceQuery } from "src/@types/subgraph/TokensPriceQuery";
+import { OperationResult } from "urql";
 
-const Dataset = ({ asset }: { asset: AssetExtended }) => {
+interface DatasetProps {
+  asset: AssetExtended;
+  priceStr: String;
+}
+
+const Dataset = ({ asset, priceStr }: DatasetProps) => {
   const { metadata: data, stats, accessDetails } = asset;
   return (
     <Grid
@@ -93,9 +100,12 @@ const Dataset = ({ asset }: { asset: AssetExtended }) => {
       <GridItem gridRow="5" colStart={1} colSpan={5}>
         <Text color="brand.500" fontWeight="bold" fontSize="xl">
           {/* TODO: add support for dynamic pricing */}
-          {accessDetails
+          {/* {accessDetails
             ? `${accessDetails?.price} ${accessDetails?.baseToken?.symbol}`
             : "Price: loading..."}
+          {console.log({ deets: accessDetails })}
+          {!accessDetails && "No access details :("} */}
+          {priceStr}
         </Text>
       </GridItem>
     </Grid>

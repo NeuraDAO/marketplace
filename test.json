@@ -1,0 +1,77 @@
+{
+  "from": 0,
+  "size": 21,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "query_string": {
+                  "query": "",
+                  "fields": [
+                    "id",
+                    "nft.owner",
+                    "datatokens.address",
+                    "datatokens.name",
+                    "datatokens.symbol",
+                    "metadata.name^10",
+                    "metadata.author",
+                    "metadata.description",
+                    "metadata.tags"
+                  ],
+                  "minimum_should_match": "2<75%",
+                  "phrase_slop": 2,
+                  "boost": 5
+                }
+              },
+              {
+                "query_string": {
+                  "query": "*",
+                  "fields": [
+                    "id",
+                    "nft.owner",
+                    "datatokens.address",
+                    "datatokens.name",
+                    "datatokens.symbol",
+                    "metadata.name^10",
+                    "metadata.author",
+                    "metadata.description",
+                    "metadata.tags"
+                  ],
+                  "boost": 5,
+                  "lenient": true
+                }
+              },
+              { "match_phrase": { "content": { "query": "", "boost": 10 } } },
+              {
+                "query_string": {
+                  "query": "**",
+                  "fields": [
+                    "id",
+                    "nft.owner",
+                    "datatokens.address",
+                    "datatokens.name",
+                    "datatokens.symbol",
+                    "metadata.name^10",
+                    "metadata.author",
+                    "metadata.description",
+                    "metadata.tags"
+                  ],
+                  "default_operator": "AND"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "filter": [
+        { "terms": { "chainId": [4] } },
+        { "term": { "_index": "aquarius" } },
+        { "term": { "purgatory.state": false } }
+      ]
+    }
+  },
+  "sort": { "nft.created": "asc" }
+}

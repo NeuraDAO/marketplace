@@ -10,8 +10,13 @@ import styles from "./index.module.css";
 import { useRouter } from "next/router";
 // not sure why this import is required
 import { AssetExtended } from "../../../src/@types/AssetExtended";
-import { getAccessDetailsForAssets } from "../../@utils/accessDetailsAndPricing";
+import {
+  getAccessDetailsForAssets,
+  getAssetPrices,
+} from "../../@utils/accessDetailsAndPricing";
 import { useIsMounted } from "@hooks/useIsMounted";
+import { OperationResult } from "urql";
+import { TokensPriceQuery } from "src/@types/subgraph/TokensPriceQuery";
 
 interface useSearchParams {
   setTotalResults: (totalResults: number) => void;
@@ -31,6 +36,13 @@ export function useSearch({
   const [sortType, setSortType] = useState<string>();
   const [sortDirection, setSortDirection] = useState<string>();
   const [assetsWithPrices, setAssetsWithPrices] = useState<AssetExtended[]>();
+  const [assetPrices, setAssetPrices] =
+    useState<
+      OperationResult<
+        TokensPriceQuery,
+        { datatokenIds: [string]; account: string }
+      >
+    >();
 
   // const { chainIds } = useUserPreferences()
   const newCancelToken = useCancelToken();
@@ -39,29 +51,44 @@ export function useSearch({
   const chainIds = [4];
 
   // TODO: fix this
+  // useEffect(() => {
+  //   const assets = queryResult?.results ?? [];
+  //   if (!assets) return;
+  //   if (assetsWithPrices) return;
+  //   setAssetsWithPrices(assets as AssetExtended[]);
+  //   setLoading(false);
+  //   console.log({ assets });
+  //   async function fetchPrices() {
+  //     const assetsWithPrices = await getAccessDetailsForAssets(
+  //       assets,
+  //       // accountId || ""
+  //       ""
+  //     );
+  //     console.log({ assetsWithPrices });
+  //     if (!isMounted()) return;
+  //     setAssetsWithPrices([...assetsWithPrices]);
+  //   }
+  //   fetchPrices();
+  // }, [
+  //   assetsWithPrices,
+  //   queryResult,
+  //   isMounted,
+  //   // accountId
+  // ]);
+
+  // get the pricing info for each asset
   useEffect(() => {
-    const assets = queryResult?.results ?? [];
-    if (!assets) return;
-    setAssetsWithPrices(assets as AssetExtended[]);
-    setLoading(false);
-    console.log({ assets });
-    async function fetchPrices() {
-      const assetsWithPrices = await getAccessDetailsForAssets(
-        assets,
-        // accountId || ""
-        ""
-      );
-      console.log({ assetsWithPrices });
-      if (!isMounted()) return;
-      setAssetsWithPrices([...assetsWithPrices]);
-    }
-    fetchPrices();
-  }, [
-    queryResult,
-    isMounted,
-    // accountId
-  ]);
-  //
+    if (!queryResult?.results) return;
+    (async () => {
+      let res = await getAssetPrices(queryResult.results);
+      console.log({ res });
+      setAssetPrices(res);
+    })();
+  }, [queryResult]);
+
+  useEffect(() => {
+    console.log({ assetPrices });
+  }, [assetPrices]);
 
   useEffect(() => {
     const parsed = queryString.parse(location.search);
@@ -99,6 +126,8 @@ export function useSearch({
       console.log({ parsed });
       const queryResult = await getResults(parsed, chainIds, newCancelToken());
       setQueryResult(queryResult);
+      setAssetsWithPrices(null);
+      setAssetPrices(null);
 
       setTotalResults(queryResult?.totalResults || 0);
       setTotalPagesNumber(queryResult?.totalPages || 0);
@@ -119,8 +148,9 @@ export function useSearch({
     fetchAssets(parsed, chainIds);
   }, [parsed, newCancelToken, fetchAssets]);
   return {
-    data: assetsWithPrices || queryResult?.results,
+    data: queryResult?.results,
     loading: loading,
+    assetPrices: assetPrices,
     page: queryResult?.page,
     onPageChange: updatePage,
     totalPages: queryResult?.totalPages,
