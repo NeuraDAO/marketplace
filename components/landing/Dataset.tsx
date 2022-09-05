@@ -10,6 +10,7 @@ import {
   TagRightIcon,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { useState } from "react";
 import { AssetExtended } from "src/@types/AssetExtended";
 import { TokensPriceQuery } from "src/@types/subgraph/TokensPriceQuery";
@@ -21,7 +22,7 @@ interface DatasetProps {
 }
 
 const Dataset = ({ asset, priceStr }: DatasetProps) => {
-  const { metadata: data, stats, accessDetails } = asset;
+  const { metadata: data, stats, accessDetails, id } = asset;
   return (
     <Grid
       w="100%"
@@ -37,7 +38,11 @@ const Dataset = ({ asset, priceStr }: DatasetProps) => {
       columnGap={{ base: 2, md: 4, lg: 8 }}
     >
       <GridItem gridRow="1" colStart={1} colSpan={5}>
-        <Heading color="brand.500">{data.name}</Heading>
+        <Link href={`/asset/${id}`}>
+          <Heading cursor="pointer" color="brand.500">
+            {data.name}
+          </Heading>
+        </Link>
       </GridItem>
       <GridItem
         gridRow="1"

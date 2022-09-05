@@ -1,40 +1,40 @@
-import React, { ReactElement, useState, useEffect } from 'react'
-import Link from 'next/link'
-import Markdown from '@shared/Markdown'
-import MetaFull from './MetaFull'
-import MetaSecondary from './MetaSecondary'
-import AssetActions from '../AssetActions'
-import { useUserPreferences } from '@context/UserPreferences'
-import Bookmark from './Bookmark'
-import { useAsset } from '@context/Asset'
-import Alert from '@shared/atoms/Alert'
-import DebugOutput from '@shared/DebugOutput'
-import MetaMain from './MetaMain'
-import EditHistory from './EditHistory'
-import styles from './index.module.css'
-import NetworkName from '@shared/NetworkName'
-import content from '../../../../content/purgatory.json'
-import { AssetExtended } from 'src/@types/AssetExtended'
-import Web3 from 'web3'
-import Button from '@shared/atoms/Button'
+import React, { ReactElement, useState, useEffect } from "react";
+import Link from "next/link";
+import Markdown from "@shared/Markdown";
+import MetaFull from "./MetaFull";
+import MetaSecondary from "./MetaSecondary";
+import AssetActions from "../AssetActions";
+import { useUserPreferences } from "@context/UserPreferences";
+import Bookmark from "./Bookmark";
+import { useAsset } from "@context/Asset";
+import Alert from "@shared/atoms/Alert";
+import DebugOutput from "@shared/DebugOutput";
+import MetaMain from "./MetaMain";
+import EditHistory from "./EditHistory";
+import styles from "./index.module.css";
+import NetworkName from "@shared/NetworkName";
+import content from "../../../../content/purgatory.json";
+import { AssetExtended } from "src/@types/AssetExtended";
+import Web3 from "web3";
+import Button from "@shared/atoms/Button";
 
 export default function AssetContent({
-  asset
+  asset,
 }: {
-  asset: AssetExtended
+  asset: AssetExtended;
 }): ReactElement {
-  const { isInPurgatory, purgatoryData, isOwner, isAssetNetwork } = useAsset()
-  const { debug } = useUserPreferences()
-  const [receipts, setReceipts] = useState([])
-  const [nftPublisher, setNftPublisher] = useState<string>()
+  const { isInPurgatory, purgatoryData, isOwner, isAssetNetwork } = useAsset();
+  const { debug } = useUserPreferences();
+  const [receipts, setReceipts] = useState([]);
+  const [nftPublisher, setNftPublisher] = useState<string>();
 
   useEffect(() => {
     setNftPublisher(
       Web3.utils.toChecksumAddress(
-        receipts?.find((e) => e.type === 'METADATA_CREATED')?.nft?.owner
+        receipts?.find((e) => e.type === "METADATA_CREATED")?.nft?.owner
       )
-    )
-  }, [receipts])
+    );
+  }, [receipts]);
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function AssetContent({
               <>
                 <Markdown
                   className={styles.description}
-                  text={asset?.metadata.description || ''}
+                  text={asset?.metadata.description || ""}
                 />
                 <MetaSecondary ddo={asset} />
               </>
@@ -83,5 +83,5 @@ export default function AssetContent({
         </div>
       </article>
     </>
-  )
+  );
 }
