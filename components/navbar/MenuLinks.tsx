@@ -2,6 +2,9 @@ import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
 import MenuItem from "./MenuItem";
+import loadable from "@loadable/component";
+import UserPreferences from "./UserPreferences";
+const Wallet = loadable(() => import("./Wallet"));
 
 const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
   return (
@@ -38,10 +41,8 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
               src="/network.png"
             />
           </MenuItem>
-          <MenuItem right to="/signin">
-            Sign In
-          </MenuItem>
-          <MenuItem right to="/settings" isLast>
+          <Wallet />
+          {/* <MenuItem right to="/settings" isLast>
             <Image
               style={{ padding: 0 }}
               width={25}
@@ -49,7 +50,8 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
               alt="icon"
               src="/cog.png"
             />
-          </MenuItem>
+          </MenuItem> */}
+          <UserPreferences />
         </Flex>
       </Flex>
     </Box>

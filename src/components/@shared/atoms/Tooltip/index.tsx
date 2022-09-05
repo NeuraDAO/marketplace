@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 // import { useSpring, animated } from 'react-spring'
 import stylesTooltip from "./index.module.css";
-// import Info from "@images/info.svg";
+import Info from "@images/info.svg";
 import Tippy, { TippyProps } from "@tippyjs/react/headless";
 
 const animation = {
@@ -13,7 +13,7 @@ const animation = {
 // Forward ref for Tippy.js
 // eslint-disable-next-line
 const DefaultTrigger = React.forwardRef((props, ref: any) => {
-  return <p>Info Icon</p>;
+  return <Info className={stylesTooltip.icon} ref={ref} />;
 });
 
 export default function Tooltip(props: TippyProps): ReactElement {
