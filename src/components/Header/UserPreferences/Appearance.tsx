@@ -1,36 +1,36 @@
-import React, { ReactElement, ChangeEvent } from 'react'
-import { DarkMode } from 'use-dark-mode'
-import FormHelp from '@shared/FormInput/Help'
-import Label from '@shared/FormInput/Label'
-import Moon from '@images/moon.svg'
-import Sun from '@images/sun.svg'
+import React, { ReactElement, ChangeEvent } from "react";
+// import { DarkMode } from 'use-dark-mode'
+import FormHelp from "@shared/FormInput/Help";
+import Label from "@shared/FormInput/Label";
+import Moon from "@images/moon.svg";
+import Sun from "@images/sun.svg";
 import BoxSelection, {
-  BoxSelectionOption
-} from '@shared/FormFields/BoxSelection'
-import styles from './Appearance.module.css'
+  BoxSelectionOption,
+} from "@shared/FormFields/BoxSelection";
+import styles from "./Appearance.module.css";
 
 export default function Appearance({
-  darkMode
+  darkMode,
 }: {
-  darkMode: DarkMode
+  darkMode: DarkMode;
 }): ReactElement {
   const options: BoxSelectionOption[] = [
     {
-      name: 'Light',
+      name: "Light",
       checked: !darkMode.value,
-      title: 'Light',
-      icon: <Sun />
+      title: "Light",
+      icon: <Sun />,
     },
     {
-      name: 'Dark',
+      name: "Dark",
       checked: darkMode.value,
-      title: 'Dark',
-      icon: <Moon />
-    }
-  ]
+      title: "Dark",
+      icon: <Moon />,
+    },
+  ];
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    event.target.value === 'Dark' ? darkMode.enable() : darkMode.disable()
+    event.target.value === "Dark" ? darkMode.enable() : darkMode.disable();
   }
 
   return (
@@ -43,5 +43,5 @@ export default function Appearance({
       />
       <FormHelp>Defaults to your OS setting, select to override.</FormHelp>
     </li>
-  )
+  );
 }

@@ -18,7 +18,7 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
         justifyContent="space-between"
       >
         <Flex gap={6}>
-          <MenuItem left to="/publish">
+          <MenuItem left to="/publish/1">
             Publish
           </MenuItem>
           <MenuItem left to="/profile">

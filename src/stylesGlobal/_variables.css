@@ -66,9 +66,6 @@
   --break-point--medium: 860px;
   --break-point--large: 1140px;
   --break-point--huge: 1400px;
-}
-
-.dark {
   --font-color-text: #e2e2e2;
   --font-color-heading: #f7f7f7;
   --background-body: rgb(10, 10, 10);
@@ -78,3 +75,7 @@
   --border-color: #303030;
   --box-shadow-color: rgba(0, 0, 0, 0.2);
 }
+
+/* .dark {
+  
+} */
