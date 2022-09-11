@@ -74,7 +74,7 @@ function UserPreferencesProvider({
   );
 
   const [infiniteApproval, setInfiniteApproval] = useState(
-    localStorage?.infiniteApproval || false
+    localStorage?.infiniteApproval || true
   );
 
   // Write values to localStorage on change
