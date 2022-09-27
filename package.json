@@ -17,7 +17,7 @@
     "@emotion/styled": "^11.10.0",
     "@fontsource/work-sans": "^4.5.10",
     "@loadable/component": "^5.15.2",
-    "@neuradao/ocean-lib": "^1.2.4",
+    "@neuradao/ocean-lib": "file:neuradao-ocean-lib-1.1.7.tgz",
     "@oceanprotocol/art": "^3.2.0",
     "@oceanprotocol/typographies": "^0.1.0",
     "@tippyjs/react": "^4.2.6",
