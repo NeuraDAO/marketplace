@@ -9,6 +9,10 @@ import {
   Grid,
   Center,
   Button,
+  Container,
+  Box,
+  Select,
+  Heading,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Layout from "../components/Layout";
@@ -19,10 +23,12 @@ function TextInput({
   name,
   value,
   setValue,
+  helperText,
 }: {
   name: string;
   value: string;
   setValue: Function;
+  helperText: string;
 }) {
   const isError = value === "";
 
@@ -35,7 +41,7 @@ function TextInput({
         onChange={(e) => setValue(e.target.value)}
       />
       {!isError ? (
-        <FormHelperText>Enter the value for {name}</FormHelperText>
+        <FormHelperText>{helperText}</FormHelperText>
       ) : (
         <FormErrorMessage>{name} is required.</FormErrorMessage>
       )}
@@ -50,6 +56,7 @@ const Publish = () => {
 
   function setValue(value, name) {
     setValues({ ...values, [name]: value });
+    console.log(value);
   }
 
   function getValue(name) {
@@ -71,116 +78,162 @@ const Publish = () => {
   return (
     <Layout title="Publish">
       {/* centers the grid on the page */}
-      <Center>
-        <Grid>
-          <TextInput
-            name="language"
-            value={getValue("language")}
-            setValue={(val) => setValue(val, "language")}
-          />
-          <TextInput
-            name="version"
-            value={getValue("version")}
-            setValue={(val) => setValue(val, "version")}
-          />
-          <TextInput
-            name="description"
-            value={getValue("description")}
-            setValue={(val) => setValue(val, "description")}
-          />
-          <TextInput
-            name="name"
-            value={getValue("name")}
-            setValue={(val) => setValue(val, "name")}
-          />
-          <TextInput
-            name="type"
-            value={getValue("type")}
-            setValue={(val) => setValue(val, "type")}
-          />
-          <TextInput
-            name="author"
-            value={getValue("author")}
-            setValue={(val) => setValue(val, "author")}
-          />
-          <TextInput
-            name="license"
-            value={getValue("license")}
-            setValue={(val) => setValue(val, "license")}
-          />
-          <TextInput
-            name="links"
-            value={getValue("links")}
-            setValue={(val) => setValue(val, "links")}
-          />
-          <TextInput
-            name="tags"
-            value={getValue("tags")}
-            setValue={(val) => setValue(val, "tags")}
-          />
-          <TextInput
-            name="modalities"
-            value={getValue("modalities")}
-            setValue={(val) => setValue(val, "modalities")}
-          />
-          <TextInput
-            name="tasks"
-            value={getValue("tasks")}
-            setValue={(val) => setValue(val, "tasks")}
-          />
-          <TextInput
-            name="size"
-            value={getValue("size")}
-            setValue={(val) => setValue(val, "size")}
-          />
-          <TextInput
-            name="files"
-            value={getValue("files")}
-            setValue={(val) => setValue(val, "files")}
-          />
-          <TextInput
-            name="sessions"
-            value={getValue("sessions")}
-            setValue={(val) => setValue(val, "sessions")}
-          />
-          <TextInput
-            name="participants"
-            value={getValue("participants")}
-            setValue={(val) => setValue(val, "participants")}
-          />
-          <TextInput
-            name="participantsAge"
-            value={getValue("participantsAge")}
-            setValue={(val) => setValue(val, "participantsAge")}
-          />
-          <TextInput
-            name="categories"
-            value={getValue("categories")}
-            setValue={(val) => setValue(val, "categories")}
-          />
-          <TextInput
-            name="copyrightHolder"
-            value={getValue("copyrightHolder")}
-            setValue={(val) => setValue(val, "copyrightHolder")}
-          />
-          <TextInput
-            name="contentLanguage"
-            value={getValue("contentLanguage")}
-            setValue={(val) => setValue(val, "contentLanguage")}
-          />
-          <TextInput
-            name="algorithm"
-            value={getValue("algorithm")}
-            setValue={(val) => setValue(val, "algorithm")}
-          />
-          <TextInput
-            name="additionalInformation"
-            value={getValue("additionalInformation")}
-            setValue={(val) => setValue(val, "additionalInformation")}
-          />
-          <Button onClick={uploadMetadata}>Submit</Button>
-        </Grid>
-      </Center>
+      <Container maxW={"container.md"}>
+        <Box my="4rem">
+          <Box mb="2rem">
+            <Heading as="h3" mb={'0.5rem'}>
+              Please Input the Metadata for your asset
+            </Heading>
+            <p>This is where you can publish your dataset</p>
+          </Box>
+          <Grid>
+            <TextInput
+              name="Price (USD)"
+              value={getValue("PriceUSD")}
+              setValue={(val) => setValue(val, "PriceUSD")}
+              helperText="Please include the language the asset is in. Ex. English"
+            />
+            <TextInput
+              name="Language"
+              value={getValue("language")}
+              setValue={(val) => setValue(val, "language")}
+              helperText="Please include the language the asset is in. Ex. English"
+            />
+            <TextInput
+              name="Version"
+              value={getValue("version")}
+              setValue={(val) => setValue(val, "version")}
+              helperText="Please include the version number if you are updating a dataset. Otherwise input V1.0"
+            />
+            <TextInput
+              name="Description"
+              value={getValue("description")}
+              setValue={(val) => setValue(val, "description")}
+              helperText="Please include a description for your dataset"
+            />
+            <TextInput
+              name="Name"
+              value={getValue("name")}
+              setValue={(val) => setValue(val, "name")}
+              helperText="Please include a name for your dataset"
+            />
+            <Select
+              name="Type"
+              placeholder="Please select the type of asset you have"
+              mt={"0.5rem"}
+              onChange={(e) => setValue(e.target.value, "type")}
+              variant="outline"
+              // border={}
+              color="white"
+              background="brand.900"
+              my={"0.5rem"}
+            >
+              <option value="algorithm">Algorithm</option>
+              <option value="dataset">Dataset</option>
+              <option value="compute">Dataset (Computer-Over-Data Only)</option>
+            </Select>
+            <TextInput
+              name="Tags"
+              value={getValue("tags")}
+              helperText="Please include any relevant tags"
+              setValue={(val) => setValue(val, "tags")}
+            />
+            <TextInput
+              name="Tasks"
+              value={getValue("tasks")}
+              helperText="Please include the modalities used if applicable"
+              setValue={(val) => setValue(val, "tasks")}
+            />
+            <TextInput
+              name="Additional Information"
+              value={getValue("additionalInformation")}
+              setValue={(val) => setValue(val, "additionalInformation")}
+              helperText="Please include any additional information."
+            />
+
+            {/* Such metadata can be taken from the json of the asset */}
+            {/* <TextInput
+              name="author"
+              value={getValue("author")}
+              setValue={(val) => setValue(val, "author")}
+              helperText='Please include the Author'
+            />
+            <TextInput
+              name="license"
+              value={getValue("license")}
+              setValue={(val) => setValue(val, "license")}
+              helperText='Please include the License'
+            />
+            <TextInput
+              name="links"
+              value={getValue("links")}
+              helperText='Please include any relevant links'
+              setValue={(val) => setValue(val, "links")}
+            /> 
+            <TextInput
+              name="modalities"
+              value={getValue("modalities")}
+              helperText='Please include the modalities used if applicable'
+              setValue={(val) => setValue(val, "modalities")}
+            /> *
+            <TextInput
+              name="size"
+              value={getValue("size")}
+              setValue={(val) => setValue(val, "size")}
+            /> 
+            <TextInput
+              name="files"
+              value={getValue("files")}
+              setValue={(val) => setValue(val, "files")}
+            />
+            <TextInput
+              name="sessions"
+              value={getValue("sessions")}
+              setValue={(val) => setValue(val, "sessions")}
+            />
+            <TextInput
+              name="participants"
+              value={getValue("participants")}
+              setValue={(val) => setValue(val, "participants")}
+              helperText='Please input the number '
+
+            />
+            <TextInput
+              name="participantsAge"
+              value={getValue("participantsAge")}
+              setValue={(val) => setValue(val, "participantsAge")}
+            />
+            <TextInput
+              name="categories"
+              value={getValue("categories")}
+              setValue={(val) => setValue(val, "categories")}
+            />
+            <TextInput
+              name="copyrightHolder"
+              value={getValue("copyrightHolder")}
+              setValue={(val) => setValue(val, "copyrightHolder")}
+            />
+            <TextInput
+              name="contentLanguage"
+              value={getValue("contentLanguage")}
+              setValue={(val) => setValue(val, "contentLanguage")}
+            />
+            <TextInput
+              name="algorithm"
+              value={getValue("algorithm")}
+              setValue={(val) => setValue(val, "algorithm")}
+            /> */}
+
+            <Button
+              onClick={uploadMetadata}
+              backgroundColor={"brand.800"}
+              mt={"2rem"}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Box>
+      </Container>
     </Layout>
   );
 };
