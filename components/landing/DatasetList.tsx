@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import Dataset from "./Dataset";
 
-const DatasetSection = () => {
+const DatasetSection = ({ datasets }) => {
   const [data, setData] = useState(["hi", "hi", "hi", "hi", "hi", "hi"]);
   const [selectedOptions, setSelectedOptions] = useState([
     {
@@ -64,7 +64,7 @@ const DatasetSection = () => {
           </>
         ))}
       </Grid>
-      {data.map((item, index) => (
+      {datasets.map((item, index) => (
         <Dataset data={item} key={index} />
       ))}
     </Container>

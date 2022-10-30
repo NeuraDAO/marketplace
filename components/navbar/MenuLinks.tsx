@@ -1,9 +1,12 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
+import { useUser } from "@auth0/nextjs-auth0";
+
 import MenuItem from "./MenuItem";
 
 const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
+  const { user } = useUser();
   return (
     <Box
       display={{ base: isOpen ? "flex" : "none", nav1: "block" }}
@@ -38,8 +41,8 @@ const MenuLinks = ({ isOpen }: { isOpen: boolean }) => {
               src="/network.png"
             />
           </MenuItem>
-          <MenuItem right to="/signin">
-            Sign In
+          <MenuItem right to={user ? "/api/auth/logout" : "/api/auth/login"}>
+            {user ? "Sign Out" : "Sign In"}
           </MenuItem>
           <MenuItem right to="/settings" isLast>
             <Image

@@ -1,11 +1,26 @@
 import { Box, Center, Grid, GridItem } from "@chakra-ui/react";
 import type { NextPage } from "next";
+
 import DatasetSection from "../components/landing/DatasetList";
 import Header from "../components/landing/Header";
 import SearchSection from "../components/landing/SearchSection";
 import Layout from "../components/Layout";
 
-const Home: NextPage = () => {
+import { getSupabase } from "../utils/supabase";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+
+// TODO: add pagination
+export const getServerSideProps = async () => {
+  const supabase = getSupabase();
+
+  const { data: datasets } = await supabase.from("metadata").select("*");
+
+  return {
+    props: { datasets },
+  };
+};
+
+const Home: NextPage = ({ datasets }) => {
   return (
     <Layout title="Home">
       {/* centers the grid on the page */}
@@ -40,7 +55,7 @@ const Home: NextPage = () => {
             gridColumn={{ base: 1, landing1: 3 }}
             w="100%"
           >
-            <DatasetSection />
+            <DatasetSection datasets={datasets} />
           </GridItem>
         </Grid>
       </Center>
