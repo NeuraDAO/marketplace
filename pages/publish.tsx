@@ -13,9 +13,13 @@ import {
   Box,
   Select,
   Heading,
+  HStack,
+  Tag,
+  TagCloseButton,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useCallback, SyntheticEvent } from "react";
 import Layout from "../components/Layout";
+import ChakraTagInput from "../components/ChakraTagInput";
 
 export const getServerSideProps = withPageAuthRequired();
 
@@ -23,7 +27,7 @@ function TextInput({
   name,
   value,
   setValue,
-  helperText,
+  helperText="Please input the require data.",
 }: {
   name: string;
   value: string;
@@ -51,6 +55,14 @@ function TextInput({
 
 const Publish = () => {
   const [values, setValues] = useState({});
+
+  const [tags, setTags] = useState([]);
+  const handleTagsChange = useCallback(
+    (event: SyntheticEvent, tags: string[]) => {
+      setTags(tags);
+    },
+    []
+  );
 
   const { user } = useUser();
 
@@ -81,7 +93,7 @@ const Publish = () => {
       <Container maxW={"container.md"}>
         <Box my="4rem">
           <Box mb="2rem">
-            <Heading as="h3" mb={'0.5rem'}>
+            <Heading as="h3" mb={"0.5rem"}>
               Please Input the Metadata for your asset
             </Heading>
             <p>This is where you can publish your dataset</p>
@@ -123,7 +135,6 @@ const Publish = () => {
               mt={"0.5rem"}
               onChange={(e) => setValue(e.target.value, "type")}
               variant="outline"
-              // border={}
               color="white"
               background="brand.900"
               my={"0.5rem"}
@@ -132,12 +143,8 @@ const Publish = () => {
               <option value="dataset">Dataset</option>
               <option value="compute">Dataset (Computer-Over-Data Only)</option>
             </Select>
-            <TextInput
-              name="Tags"
-              value={getValue("tags")}
-              helperText="Please include any relevant tags"
-              setValue={(val) => setValue(val, "tags")}
-            />
+            
+            <ChakraTagInput name={"Tags"} tags={tags} onTagsChange={handleTagsChange} />
             <TextInput
               name="Tasks"
               value={getValue("tasks")}
