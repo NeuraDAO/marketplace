@@ -27,6 +27,7 @@ export type ChakraTagInputProps = InputProps & {
   onTagsChange?(event: SyntheticEvent, tags: string[]): void;
   onTagAdd?(event: SyntheticEvent, value: string): void;
   onTagRemove?(event: SyntheticEvent, index: number): void;
+  setValue?: Function;
 
   vertical?: boolean;
   addKeys?: string[];
@@ -44,6 +45,7 @@ export default forwardRef(function ChakraTagInput(
     onTagsChange,
     onTagAdd,
     onTagRemove,
+    setValue,
     name,
     vertical = false,
     addKeys = ["Enter"],
@@ -56,7 +58,7 @@ export default forwardRef(function ChakraTagInput(
   }: ChakraTagInputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-  const addTag = useCallback(
+    const addTag = useCallback(
     (event: SyntheticEvent, tag: string) => {
       onTagAdd?.(event, tag);
       if (event.isDefaultPrevented()) return;

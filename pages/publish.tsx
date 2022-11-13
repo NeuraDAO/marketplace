@@ -17,7 +17,7 @@ import {
   Tag,
   TagCloseButton,
 } from "@chakra-ui/react";
-import { useState, useCallback, SyntheticEvent } from "react";
+import { useState, useCallback, SyntheticEvent, useEffect } from "react";
 import Layout from "../components/Layout";
 import ChakraTagInput from "../components/ChakraTagInput";
 
@@ -71,7 +71,7 @@ function SelectInput({
       <Select
               name={name}
               placeholder={helperText}
-              onChange={setValue}
+              onChange={(e) => setValue(e.target.value)}
               mt={"0.5rem"}
               variant="outline"
               color="white"
@@ -91,18 +91,23 @@ const Publish = () => {
   const [values, setValues] = useState({});
 
   const [tags, setTags] = useState([]);
-  const handleTagsChange = useCallback(
+
+   const handleTagsChange = useCallback(
     (event: SyntheticEvent, tags: string[]) => {
       setTags(tags);
+      console.log("tags: ", tags)
+      setValue(tags, 'tags')
     },
-    []
+    [setValue]
   );
 
+  
   const { user } = useUser();
 
-  function setValue(value, name) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function setValue(value: any[], name: string) {
     setValues({ ...values, [name]: value });
-    console.log(value);
+    console.log("value: " + value);
   }
 
   function getValue(name) {
@@ -135,8 +140,8 @@ const Publish = () => {
           <Grid>
             <TextInput
               name="Price (USD)"
-              value={getValue("PriceUSD")}
-              setValue={(val) => setValue(val, "PriceUSD")}
+              value={getValue("priceUSD")}
+              setValue={(val) => setValue(val, "priceUSD")}
               helperText="Please include the language the asset is in. Ex. English"
             />
             <TextInput
@@ -167,7 +172,7 @@ const Publish = () => {
             name="Type"
             helperText="Please select the type of asset you have"
             option={['Algorithm','Dataset','Dataset (Compute-to-Data Only)']}
-            setValue={(e) => setValue(e.target.value, 'type') }
+            setValue={(val) => setValue(val, "type")}
              />
             
             <ChakraTagInput name={"Tags"} tags={tags} onTagsChange={handleTagsChange} />
