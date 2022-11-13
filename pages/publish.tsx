@@ -53,6 +53,40 @@ function TextInput({
   );
 }
 
+function SelectInput({
+  name,
+  setValue,
+  helperText="Please input the require data.",
+  option,
+}: {
+  name: string;
+  setValue: Function;
+  helperText: string;
+  option: string[]; //has to be n=3
+}) {
+
+  return (
+    <Box>
+      <FormLabel>{name}</FormLabel>
+      <Select
+              name={name}
+              placeholder={helperText}
+              onChange={setValue}
+              mt={"0.5rem"}
+              variant="outline"
+              color="white"
+              background="brand.900"
+              my={"0.5rem"}
+            >
+              <option value={option[0]}>{option[0]}</option>
+              <option value={option[1]}>{option[1]}</option>
+              <option value={option[2]}>{option[2]}</option>
+            </Select>
+    </Box>
+    
+  );
+}
+
 const Publish = () => {
   const [values, setValues] = useState({});
 
@@ -129,20 +163,12 @@ const Publish = () => {
               setValue={(val) => setValue(val, "name")}
               helperText="Please include a name for your dataset"
             />
-            <Select
-              name="Type"
-              placeholder="Please select the type of asset you have"
-              mt={"0.5rem"}
-              onChange={(e) => setValue(e.target.value, "type")}
-              variant="outline"
-              color="white"
-              background="brand.900"
-              my={"0.5rem"}
-            >
-              <option value="algorithm">Algorithm</option>
-              <option value="dataset">Dataset</option>
-              <option value="compute">Dataset (Computer-Over-Data Only)</option>
-            </Select>
+            <SelectInput
+            name="Type"
+            helperText="Please select the type of asset you have"
+            option={['Algorithm','Dataset','Dataset (Compute-to-Data Only)']}
+            setValue={(e) => setValue(e.target.value, 'type') }
+             />
             
             <ChakraTagInput name={"Tags"} tags={tags} onTagsChange={handleTagsChange} />
             <TextInput
