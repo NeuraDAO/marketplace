@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Layout from "../components/Layout";
+import Router from "next/router";
 
 export const getServerSideProps = withPageAuthRequired();
 
@@ -83,6 +84,9 @@ const Publish = () => {
       body: JSON.stringify(data),
     }).catch((error) => console.log("error", error));
     console.log({ res });
+    // if (res.status === 200) {
+    //   router.push(`/dataset/${res.datasetId}`);
+    // }
   };
 
   return (

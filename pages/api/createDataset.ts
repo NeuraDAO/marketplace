@@ -2,6 +2,7 @@
 // Given a dataset id, create the price in stripe and add it into supabase
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import { getSupabase } from "../../utils/supabase";
 
 type Data = {
@@ -29,6 +30,18 @@ export default async function handler(
     return res.status(400).json({
       success: false,
       error: "Missing dataset ID or Dataset metadata in body",
+    });
+  }
+  //   check if the user has an account connected
+  const { data: user } = await supabase
+    .from("users")
+    .select("*")
+    .eq("auth_id", body.ownerId)
+    .single();
+  if (!user.stripe_account) {
+    return res.status(400).json({
+      success: false,
+      error: "User does not have a stripe account connected",
     });
   }
   const { metadata } = body;
