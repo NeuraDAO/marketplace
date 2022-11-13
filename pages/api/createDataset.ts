@@ -20,33 +20,31 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  //  first step: get the dataset information from supabase
+  //  first step: get the dataset information from the body
   //   const body = JSON.parse(req.body);
+  //   TODO: add metadata checking
   const body = req.body;
-  if (!body && !body.datasetId) {
-    return res
-      .status(400)
-      .json({ success: false, error: "Missing dataset ID in body" });
+  //   TODO: ownerId should be from jwt
+  if (!body || !body.metadata || !body.ownerId) {
+    return res.status(400).json({
+      success: false,
+      error: "Missing dataset ID or Dataset metadata in body",
+    });
   }
-  // get dataset from supabase
-  const { data: dataset } = await supabase
-    .from("metadata")
-    .select("*")
-    .eq("id", body.datasetId)
-    .single();
+  const { metadata } = body;
   // second step: create the price in stripe
   const price = await stripe.prices.create({
-    unit_amount: dataset.priceUSD * 100,
+    // note: unit must be in cents
+    unit_amount: metadata.priceUSD * 100,
     currency: "usd",
-    // recurring: false,
     product_data: {
-      name: dataset.name,
+      name: metadata.name,
     },
   });
   // third step: add the price ID to the dataset in supabase
   const supabaseRes = await supabase
     .from("metadata")
-    .update({ priceId: price.id })
-    .eq("id", body.datasetId);
+    .insert({ owner: body.ownerId, ...metadata, priceId: price.id });
+
   res.status(200).json({ price, supabaseRes });
 }

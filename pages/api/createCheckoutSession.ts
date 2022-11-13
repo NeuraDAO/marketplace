@@ -39,6 +39,7 @@ export default async function handler(
     success_url: `${process.env.FRONTEND_URL}/success`,
     cancel_url: `${process.env.FRONTEND_URL}/failure`,
     payment_intent_data: {
+      // TODO: change this amount
       application_fee_amount: 123,
       transfer_data: {
         destination: body.accountId,
